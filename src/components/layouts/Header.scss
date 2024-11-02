@@ -1,15 +1,12 @@
-.App-header {
-    background-color: #282c34;
-    padding: 20px;
-    text-align: center;
+.header-container {
+  @apply bg-primary-rzaWhite shadow-md w-screen px-6;
+  .header{
+    @apply flex justify-between items-center;
+    .App-logo{
+      @apply w-16 h-16;
+    }
+    .hamburger{
+      @apply w-8 h-8;
+    }
   }
-  
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
+}

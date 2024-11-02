@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import logo from '../../logo.svg'; 
+import hamburger from '../../assets/icons/hamburger-dark.svg'
 import './Header.scss';
+import SlideMenu from './SideMenu/SlideMenu';
 
 const Header: React.FC = () => {
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  
   return (
-    <header className="App-header">
+   <>
+    <header className="header-container">
+     <div className="header">
       <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
+      <button onClick={toggleMenu}>
+        <img src={hamburger} className="hamburger" alt="hamd" />
+      </button>
+     </div>
     </header>
+    
+    <SlideMenu isOpen={isMenuOpen} onClose={closeMenu}/>
+   </>
   );
 };
 
