@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './SlideMenu.module.scss';
 
 interface SideMenuProps {
@@ -8,14 +8,14 @@ interface SideMenuProps {
 
 const SlideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
   return (
-    <div className="sidemenu-mobile-container">
+    <div className={`${styles['sidemenu-mobile-container']}`}>
      <div className={`${styles['side-menu']} ${isOpen ? styles.open : ''}`}>
         <button
           onClick={onClose}
           className=""
         >
           <svg
-            className="w-6 h-6"
+            className="size-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -31,28 +31,28 @@ const SlideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
         </button>
 
         {/* Menu Content */}
-        <nav className="mt-16 space-y-4 text-gray-800 p-4">
-          <a href="#home" className="block text-lg font-semibold hover:text-blue-500">
+        <nav className={`${styles['navigation']}`}>
+          <a href="#home" className={`${styles['item']}`}>
             Home
           </a>
-          <a href="#about" className="block text-lg font-semibold hover:text-blue-500">
+          <a href="#about" className={`${styles['item']}`}>
             About
           </a>
-          <a href="#services" className="block text-lg font-semibold hover:text-blue-500">
+          <a href="#services" className={`${styles['item']}`}>
             Services
           </a>
-          <a href="#contact" className="block text-lg font-semibold hover:text-blue-500">
+          <a href="#contact" className={`${styles['item']}`}>
             Contact
           </a>
         </nav>
-      </div>
+    </div>
 
       {/* Overlay (to close the menu when clicking outside) */}
       {isOpen && (
-        <div
+        <button
           onClick={onClose}
-          className="fixed inset-0 bg-black opacity-50 z-40"
-        ></div>
+          className={`${styles['overlay']}`}
+        ></button>
       )}
     </div>
   );
