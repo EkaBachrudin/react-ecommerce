@@ -1,5 +1,3 @@
-@import "../../../styles/tailwind.scss";
-
 .sidemenu-mobile-container{
   .side-menu {
     @apply fixed top-0 right-0 h-full w-64 bg-primary-rzaWhite shadow-lg transform transition-transform duration-300 ease-in-out z-50 translate-x-full;

@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from './SlideMenu.module.scss';
+import type { MenuItem } from 'domain/models/menuItem';
 
 interface SideMenuProps {
     isOpen: boolean;
     onClose: () => void;
+    menuItems: MenuItem[]
 }
 
-const SlideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
+const SlideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, menuItems }) => {
   return (
     <div className={`${styles['sidemenu-mobile-container']}`}>
      <div className={`${styles['side-menu']} ${isOpen ? styles.open : ''}`}>
@@ -30,21 +32,16 @@ const SlideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
           </svg>
         </button>
 
-        {/* Menu Content */}
         <nav className={`${styles['navigation']}`}>
-          <a href="#home" className={`${styles['item']}`}>
-            Home
-          </a>
-          <a href="#about" className={`${styles['item']}`}>
-            About
-          </a>
-          <a href="#services" className={`${styles['item']}`}>
-            Services
-          </a>
-          <a href="#contact" className={`${styles['item']}`}>
-            Contact
-          </a>
+          {
+            menuItems.map((item) => (
+              <a href="#home" className={`${styles['item']}`} key={item.name}>
+              {item.name}
+              </a>
+            ))
+          }
         </nav>
+        
     </div>
 
       {/* Overlay (to close the menu when clicking outside) */}

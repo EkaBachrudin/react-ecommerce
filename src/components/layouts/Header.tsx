@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import logo from '../../logo.svg'; 
 import hamburger from '../../assets/icons/hamburger-dark.svg'
 import './Header.scss';
 import SlideMenu from './SideMenu/SlideMenu';
+import { menuRepository } from 'data/repositories/menuRepository';
+import type { MenuItem } from 'domain/models/menuItem';
 
 const Header: React.FC = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const items = await menuRepository.getMenuItems();
+        console.log(items);
+        setMenuItems(items);
+      } catch {
+        setError("Failed to load menu items");
+      }
+    };
+
+    fetchMenuItems();
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,6 +38,7 @@ const Header: React.FC = () => {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  
   
   return (
    <>
@@ -28,7 +51,7 @@ const Header: React.FC = () => {
      </div>
     </header>
     
-    <SlideMenu isOpen={isMenuOpen} onClose={closeMenu}/>
+    <SlideMenu isOpen={isMenuOpen} onClose={closeMenu} menuItems={menuItems}/>
    </>
   );
 };
