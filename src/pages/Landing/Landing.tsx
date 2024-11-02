@@ -7,10 +7,30 @@ import styles from './Landing.module.scss';
 import { digitalHubRepository } from 'data/repositories/DigitalHubRepository';
 import type { HeroBannerModel } from 'domain/models/heroBanner';
 import bgHeroBanner from '../../assets/images/bg-hero-banner.svg';
+
 import { Link } from 'react-router-dom';
+import { NextArrow, PrevArrow } from './components/customArrow';
+
+const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 1024);
+      };
+  
+      window.addEventListener('resize', handleResize);
+  
+      handleResize();
+  
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return isMobile;
+};
 
 const Landing: React.FC = () => {
-
+    const isMobile = useIsMobile();
     const [error, setError] = useState<string | null>(null);
     const [bannerData, setBannerData] = useState<HeroBannerModel>();
 
@@ -22,6 +42,7 @@ const Landing: React.FC = () => {
           setError("Failed to hero banner data");
         }
       };
+
 
     useEffect(() => {
         fetchMenuItems();
@@ -35,10 +56,12 @@ const Landing: React.FC = () => {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 1,
+        slidesToShow: isMobile ? 1 : 2,
         slidesToScroll: 1,
-        arrows: false,
-        centerPadding: '400px'
+        arrows: isMobile ? false : true,
+        centerPadding: '400px',
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />
     };
 
   return (
@@ -46,23 +69,25 @@ const Landing: React.FC = () => {
        <div className={styles['hero-baner-container']} style={{backgroundImage: `url(${bgHeroBanner})`}}>
         <div className={styles['main-title']}>{bannerData?.title}</div>
         <div className={styles['main-desc']}>{bannerData?.desc}</div>
-        <Slider {...settings}>
-            { bannerData?.items.map((item) => (
-                <div key={item.title}>
-                    <div className={styles['banner-items']} style={{ backgroundImage: `url(${item.imageUrl})`, backgroundSize: "cover" }}>
-                        <div className={styles['banner-items-inner']}>
-                            <div className={styles['item-content']}>
-                                <div className={styles['banner-title']}> {item.title}</div>
-                                <div className={styles['banner-desc']}> {item.desc}</div>
-                                <Link to={item.pageUrl} className={styles['banner-button']}>
-                                    Cek Paket
-                                </Link>
+        <div className={styles['slider']}>
+            <Slider {...settings}>
+                { bannerData?.items.map((item) => (
+                    <div key={item.title}>
+                        <div className={styles['banner-items']} style={{ backgroundImage: `url(${item.imageUrl})`, backgroundSize: "cover" }}>
+                            <div className={styles['banner-items-inner']}>
+                                <div className={styles['item-content']}>
+                                    <div className={styles['banner-title']}> {item.title}</div>
+                                    <div className={styles['banner-desc']}> {item.desc}</div>
+                                    <Link to={item.pageUrl} className={styles['banner-button']}>
+                                        Cek Paket
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
-        </Slider>
+                ))}
+            </Slider>
+        </div>
        </div>
 
        
