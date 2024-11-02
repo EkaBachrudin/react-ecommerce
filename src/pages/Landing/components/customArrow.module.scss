@@ -10,3 +10,11 @@
     right: 0;
     top: 50%;
 }
+
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
+button{
+    display: block;
+}
