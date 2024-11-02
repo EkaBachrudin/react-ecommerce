@@ -1,0 +1,17 @@
+@import "../../styles/tailwind.scss";
+
+.docContainer {
+  @apply p-5;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  .description {
+    color: #555;
+    font-size: 1rem;
+  }
+  
