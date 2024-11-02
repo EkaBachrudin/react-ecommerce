@@ -1,0 +1,33 @@
+.hero-baner-container{
+    .main-title{
+        @apply text-f-24 text-primary-rzaWhite font-poppins-bold pt-[54px] text-left mx-6;
+    }
+    .main-desc{
+        @apply text-f-13 font-poppins-regular text-primary-rzaWhite mt-4 text-left mx-6;
+    }
+
+    .banner-items{
+        @apply h-[236px] rounded-[20px] mt-4 mb-10 mx-6 shadow-lg;
+    }
+
+    .banner-items-inner{
+        @apply h-[237px] rounded-[20px];
+        background: linear-gradient(98.85deg, #001A41 0.2%, rgba(0, 0, 0, 0) 69.4%),
+        linear-gradient(78.18deg, #001A41 2.21%, rgba(0, 0, 0, 0) 72.6%);
+
+        .item-content{
+            @apply max-w-[221.6px] max-h-[106.48px] pt-8 pl-6;
+            .banner-title{
+                @apply text-f-18 font-poppins-bold text-primary-rzaWhite text-left;
+            }
+            .banner-desc{
+                @apply text-f-12 font-poppins-regular text-primary-rzaGrey40 mt-1 text-left;
+            }
+            .banner-button{
+                @apply rounded-[56px] text-primary-rzaWhite text-f-12 font-poppins-bold py-[6px] w-[120px] mt-8 block;
+                border: 2px solid #FFFFFF;
+            }
+        }
+        
+    }
+}

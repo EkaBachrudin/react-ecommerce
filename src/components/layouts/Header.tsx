@@ -17,7 +17,6 @@ const Header: React.FC = () => {
     const fetchMenuItems = async () => {
       try {
         const items = await menuRepository.getMenuItems();
-        console.log(items);
         setMenuItems(items);
       } catch {
         setError("Failed to load menu items");
