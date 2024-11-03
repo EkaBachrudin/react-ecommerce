@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { HeroBannerModel } from 'domain/models/heroBanner';
 import Slider from 'react-slick';
@@ -8,32 +8,19 @@ import styles from './HeroBanner.module.scss';
 import bgHeroBanner from '../../../../assets/images/bg-hero-banner.svg';
 import { NextArrow, PrevArrow } from '../customArrow';
 import CustomDot from '../CustomDot/CustomDot';
+import useIsMobile from 'hook/useIsMobile';
 
 interface HeroBannerProps {
     bannerDataProps: HeroBannerModel | undefined;
-  }
-
-const useIsMobile = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-  
-    useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 1024);
-      };
-  
-      window.addEventListener('resize', handleResize);
-  
-      handleResize();
-  
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
-  
-    return isMobile;
-};
+}
 
 const HeroBanner: React.FC<HeroBannerProps > = ({bannerDataProps}) => {
     const [activeSlide, setActiveSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(0);
     const isMobile = useIsMobile();
+    const slider = useRef<Slider>(null);
+
+    const datalength: number | undefined = bannerDataProps?.items?.length;
 
     const settings = {
         dots: isMobile ? false : true,
@@ -43,9 +30,16 @@ const HeroBanner: React.FC<HeroBannerProps > = ({bannerDataProps}) => {
         slidesToScroll: 1,
         arrows: isMobile ? false : true,
         centerPadding: '400px',
-        nextArrow: <NextArrow onClick={function (): void { }} />,
-        prevArrow: <PrevArrow onClick={function (): void { }} />,
+        nextArrow: <NextArrow 
+                    onClick={() => slider.current?.slickNext()} 
+                    isVisible={currentSlide < (datalength ? datalength : 0) - (isMobile ? 1 : 2)}  
+                    extraStyle={{position: 'absolute',right: '0',top: '50%' }}  />,
+        prevArrow: <PrevArrow 
+                    onClick={function (): void { }} 
+                    isVisible={currentSlide > 0}
+                    extraStyle={{position: 'absolute',zIndex: '100',top: '49%' }}  />,
         beforeChange: (current: number, next: number) => setActiveSlide(next),
+        afterChange: (current: number) => setCurrentSlide(current),
         customPaging: (i: number) => (
             <CustomDot
               isActive={i === activeSlide}
@@ -66,7 +60,7 @@ const HeroBanner: React.FC<HeroBannerProps > = ({bannerDataProps}) => {
             <div className={styles['main-title']}>{bannerDataProps?.title}</div>
             <div className={styles['main-desc']}>{bannerDataProps?.desc}</div>
             <div className={styles['slider']}>
-                <Slider {...settings}>
+                <Slider ref={slider} {...settings}>
                     { bannerDataProps?.items.map((item) => (
                         <div key={item.title}>
                             <div className={styles['banner-items']} style={{ backgroundImage: `url(${item.imageUrl})`, backgroundSize: "cover" }}>

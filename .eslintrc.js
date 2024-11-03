@@ -30,6 +30,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off', // React 17 and later don't need React in scope
     'tailwindcss/no-custom-classname': 'off', // Turn off if you use custom Tailwind classes
     // Add other rules as needed
+    'react/prop-types': 'off'
   },
   settings: {
     react: {

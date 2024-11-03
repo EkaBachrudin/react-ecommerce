@@ -6,15 +6,28 @@ import "slick-carousel/slick/slick-theme.css";
 import { digitalHubRepository } from 'data/repositories/DigitalHubRepository';
 import type { HeroBannerModel } from 'domain/models/heroBanner';
 import HeroBanner from './components/HeroBanner/HeroBanner';
+import Category from './components/Category/Category';
+import type { CategoryModel } from 'domain/models/category';
 
 const Landing: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [bannerData, setBannerData] = useState<HeroBannerModel>();
+    const [categoryData, setCategoryData] = useState<CategoryModel[]>([]);
 
     const fetchMenuItems = async () => {
         try {
           const items = await digitalHubRepository.getHeroBanner();
           setBannerData(items);
+          fetchCategory();
+        } catch {
+          setError("Failed to hero banner data");
+        }
+    };
+
+    const fetchCategory = async () => {
+        try {
+          const items = await digitalHubRepository.getCategory();
+          setCategoryData(items);
         } catch {
           setError("Failed to hero banner data");
         }
@@ -22,7 +35,7 @@ const Landing: React.FC = () => {
 
     useEffect(() => {
         fetchMenuItems();
-    }, []);
+    });
 
     if (error) {
         return <div>{error}</div>;
@@ -31,6 +44,9 @@ const Landing: React.FC = () => {
   return (
     <>
       <HeroBanner bannerDataProps={bannerData} />
+      {categoryData && categoryData.length > 0 && (
+        <Category categoryData={categoryData} />
+      )}
     </>
   );
 };
