@@ -26,7 +26,7 @@ const HeroBanner: React.FC<HeroBannerProps > = ({bannerDataProps}) => {
         dots: isMobile ? false : true,
         infinite: false,
         speed: 500,
-        slidesToShow: isMobile ? 1 : 2,
+        slidesToShow: isMobile ? 0.8 : 2,
         slidesToScroll: 1,
         arrows: isMobile ? false : true,
         centerPadding: '400px',

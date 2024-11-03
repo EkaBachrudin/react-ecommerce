@@ -5,6 +5,7 @@ import { ReactComponent as MoveIcon } from '../../../../assets/icons/move.svg';
 import { ReactComponent as ChatIcon } from '../../../../assets/icons/chat.svg';
 import { ReactComponent as GamesIcon } from '../../../../assets/icons/games.svg';
 import { ReactComponent as MusicIcon } from '../../../../assets/icons/music.svg';
+import type { ManageServiceModel } from "domain/models/Manageservice";
 
 const heroBannerData: HeroBannerModel = {
     title: 'Telkomsel Digital Hub',
@@ -48,11 +49,53 @@ const categoryData: CategoryModel[] = [
     {icon: MusicIcon, name: 'Musik'}
 ]
 
+const manageServiceData: ManageServiceModel = {
+    title: 'Kelola Layanan Digital',
+    top: [
+        {icon: ChatIcon, name: 'Aktifkan Paket'},
+        {icon: GamesIcon, name: 'Pusat Bantuan'},
+    ],
+    serviceItems: {
+        title: 'Jelajahi Beragam Layanan',
+        urlSeeAll: '/doc',
+        items: [
+            {
+                imageUrl: 'https://picsum.photos/1920/1089',
+                title: 'Kuncie',
+                desc: 'Langganan mulai dari Rp54.000/bulan'
+            },
+            {
+                imageUrl: 'https://picsum.photos/1920/1081',
+                title: 'Vidoe',
+                desc: 'Langganan mulai dari Rp54.000/bulan'
+            },
+            {
+                imageUrl: 'https://picsum.photos/1920/1082',
+                title: 'Kuncie',
+                desc: 'Langganan mulai dari Rp54.000/bulan'
+            },
+            {
+                imageUrl: 'https://picsum.photos/1920/1083',
+                title: 'Vidoe',
+                desc: 'Langganan mulai dari Rp54.000/bulan'
+            },
+            {
+                imageUrl: 'https://picsum.photos/1920/1086',
+                title: 'Vidoe',
+                desc: 'Langganan mulai dari Rp54.000/bulan'
+            },
+        ]
+    }
+}
+
 export class HeroBannerMock implements DigitalHubRepositoryInterface {
     async getCategory(): Promise<CategoryModel[]> {
         return categoryData;
     }
     async getHeroBanner(): Promise<HeroBannerModel> {
         return heroBannerData;
+    }
+    async getManageService(): Promise<ManageServiceModel> {
+        return manageServiceData;
     }
 }
