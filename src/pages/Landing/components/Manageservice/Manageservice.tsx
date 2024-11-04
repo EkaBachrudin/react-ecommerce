@@ -59,9 +59,8 @@ const Manageservice: React.FC<ManageservicePorps> = ({manageServiceData}) => {
     };
 
     if (!manageServiceData || !manageServiceData.serviceItems.items.length) {
-        // Optionally render a placeholder or nothing at all
         return <div>Loading...</div>;
-      }
+    }
 
     return (
         <>

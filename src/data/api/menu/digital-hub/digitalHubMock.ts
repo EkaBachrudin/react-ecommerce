@@ -6,6 +6,7 @@ import { ReactComponent as ChatIcon } from '../../../../assets/icons/chat.svg';
 import { ReactComponent as GamesIcon } from '../../../../assets/icons/games.svg';
 import { ReactComponent as MusicIcon } from '../../../../assets/icons/music.svg';
 import type { ManageServiceModel } from "domain/models/Manageservice";
+import type { ProductListModel } from "domain/models/productList";
 
 const heroBannerData: HeroBannerModel = {
     title: 'Telkomsel Digital Hub',
@@ -56,7 +57,7 @@ const manageServiceData: ManageServiceModel = {
         {icon: GamesIcon, name: 'Pusat Bantuan'},
     ],
     serviceItems: {
-        title: 'Jelajahi Beragam Layanan',
+        title: 'Jelajahi Layanan',
         urlSeeAll: '/doc',
         items: [
             {
@@ -88,6 +89,39 @@ const manageServiceData: ManageServiceModel = {
     }
 }
 
+const productDetailData: ProductListModel = {
+    title: 'Pilihan Telkomsel',
+    seeAllUrl: '/doc',
+    desc: 'Produk-produk unggulan Telkomsel yang cocok untuk Anda',
+    productList: [
+        {
+            imageUrl: 'https://picsum.photos/1280/720',
+            title: 'Tonton film karya anak muda Indonesia di MAXstream',
+            desc: 'Langganan mulai dari Rp54.000/bulan'
+        },
+        {
+            imageUrl: 'https://picsum.photos/1280/721',
+            title: 'Kembangkan karir dengan belajar standar internasional',
+            desc: 'Langganan mulai dari Rp54.000/bulan'
+        },
+        {
+            imageUrl: 'https://picsum.photos/1280/722',
+            title: 'Tonton film karya anak muda Indonesia di MAXstream',
+            desc: 'Langganan mulai dari Rp54.000/bulan'
+        },
+        {
+            imageUrl: 'https://picsum.photos/1280/723',
+            title: 'Kembangkan karir dengan belajar standar internasional',
+            desc: 'Langganan mulai dari Rp54.000/bulan'
+        },
+        {
+            imageUrl: 'https://picsum.photos/1280/724',
+            title: 'Tonton film karya anak muda Indonesia di MAXstream',
+            desc: 'Langganan mulai dari Rp54.000/bulan'
+        },
+    ]
+}
+
 export class HeroBannerMock implements DigitalHubRepositoryInterface {
     async getCategory(): Promise<CategoryModel[]> {
         return categoryData;
@@ -97,5 +131,8 @@ export class HeroBannerMock implements DigitalHubRepositoryInterface {
     }
     async getManageService(): Promise<ManageServiceModel> {
         return manageServiceData;
+    }
+    async getProductList(): Promise<ProductListModel> {
+        return productDetailData;
     }
 }
